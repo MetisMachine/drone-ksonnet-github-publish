@@ -19,3 +19,8 @@ RUN wget "https://github.com/ksonnet/ksonnet/releases/download/v${KS_VERSION}/ks
     chmod +x /usr/bin/ks && \
     rm -r ks_*
 
+COPY src/main.sh .
+
+ENTRYPOINT /bin/bash
+
+CMD ./main.sh
