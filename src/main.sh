@@ -14,6 +14,7 @@ git checkout -b "${DRONE_BRANCH}/${PLUGIN_TAG}"
 
 echo "Updating ${PLUGIN_KS_COMPONENT} image for environment ${PLUGIN_KS_ENV}"
 ks param set "${PLUGIN_KS_COMPONENT}" \
+  image \
   "${PLUGIN_DOCKER_REPO}:${PLUGIN_TAG}" \
   --env "${PLUGIN_KS_ENV}"
 
