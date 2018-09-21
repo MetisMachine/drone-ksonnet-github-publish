@@ -24,7 +24,7 @@ echo "Commit changes..."
 git commit -m "Drone auto-upgrade: ${PLUGIN_KS_COMPONENT} to ${PLUGIN_TAG}"
 
 echo "Pushing branch"
-hub push origin "${DRONE_BRANCH}/${PLUGIN_TAG}"
+hub push origin "${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}"
 
 echo "Creating Pull Request..."
 
