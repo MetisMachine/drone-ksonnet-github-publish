@@ -10,7 +10,7 @@ git clone "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${PLUGIN_GITHUB_ORG}
 cd "${PLUGIN_GITHUB_REPO}"
 
 echo "Create branch for PR..."
-git checkout -b "${DRONE_BRANCH}/${PLUGIN_TAG}"
+git checkout -b "${DRONE_BRANCH}/${PLUGIN_TAG}-${DRONE_BUILD_NUMBER}"
 
 echo "Updating ${PLUGIN_KS_COMPONENT} image for environment ${PLUGIN_KS_ENV}"
 ks param set "${PLUGIN_KS_COMPONENT}" \
