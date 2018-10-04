@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+BRANCH="${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}"
+
 git config --global user.email "drone@drone.io"
 git config --global user.name "drone"
 
@@ -10,7 +12,7 @@ git clone "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${PLUGIN_GITHUB_ORG}
 cd "${PLUGIN_GITHUB_REPO}"
 
 echo "Create branch for PR..."
-git checkout -b "${DRONE_BRANCH}/${PLUGIN_TAG}-${DRONE_BUILD_NUMBER}"
+git checkout -b "${BRANCH}"
 
 echo "Updating ${PLUGIN_KS_COMPONENT} image for environment ${PLUGIN_KS_ENV}"
 ks param set "${PLUGIN_KS_COMPONENT}" \
@@ -21,10 +23,10 @@ ks param set "${PLUGIN_KS_COMPONENT}" \
 git add environments/.
 
 echo "Commit changes..."
-git commit -m "Drone auto-upgrade: ${PLUGIN_KS_COMPONENT} to ${PLUGIN_TAG}"
+git commit -m "Drone auto-publish: ${PLUGIN_KS_COMPONENT} to ${PLUGIN_TAG}"
 
 echo "Pushing branch"
-hub push origin "${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}"
+hub push origin "${BRANCH}"
 
 echo "Creating Pull Request..."
 
