@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 BRANCH="${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}"
 
@@ -12,7 +11,7 @@ git clone "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${PLUGIN_GITHUB_ORG}
 cd "${PLUGIN_GITHUB_REPO}"
 
 echo "Create branch for PR..."
-git checkout -b "${BRANCH}"
+git checkout -b "${BRANCH}" || echo "branch exists..."
 
 echo "Updating ${PLUGIN_KS_COMPONENT} image for environment ${PLUGIN_KS_ENV}"
 ks param set "${PLUGIN_KS_COMPONENT}" \
