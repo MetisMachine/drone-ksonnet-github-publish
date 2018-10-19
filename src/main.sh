@@ -1,6 +1,7 @@
 #!/bin/bash
 
-BRANCH="${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}"
+NOW=$(date +%s)
+BRANCH="${DRONE_BUILD_NUMBER}-${PLUGIN_TAG}-${NOW}"
 DIR=$(mktemp -d)
 
 git config --global user.email "drone@drone.io"
@@ -31,7 +32,7 @@ hub push origin "${BRANCH}" || exit 1
 echo "Creating Pull Request..."
 
 PR_MSG=$(cat <<EOF
-$(date +%s) ${DRONE_REPO_NAME} ${PLUGIN_TAG}
+${DRONE_REPO_NAME} ${PLUGIN_TAG} ${NOW}
 
 [Build #${DRONE_BUILD_NUMBER}](${DRONE_BUILD_LINK})
 ${PLUGIN_DOCKER_REPO}:${PLUGIN_TAG}
